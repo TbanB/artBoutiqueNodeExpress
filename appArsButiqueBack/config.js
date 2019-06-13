@@ -1,0 +1,1 @@
+exports.SECRET_KEY = 'a ver si consigo curro pronto!'

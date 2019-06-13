@@ -39,7 +39,7 @@ let insertUsuario = (values) => {
 
 let editUsuario = (values) => {
     return new Promise((resolve, reject) => {
-        db.get().query('UPDATE usuarios INTO UPDATE `usuarios` SET `nombre`= ?,`apellidos`= ?,`alias`= ?,`email`= ?,`password`= ?,`pais`= ?,`imagen_perfil`= ?,`descripcion_usuario`= ? WHERE id_usuario= ?', [values.nombre, values.apellidos, values.alias, values.email, values.password, values.pais, values.imagen_perfil, values.descripcion_usuario, values.idUsuario], (err, result) => {
+        db.get().query('UPDATE usuarios SET `nombre`= ?,`apellidos`= ?,`alias`= ?,`email`= ?,`password`= ?,`pais`= ?,`imagen_perfil`= ?,`descripcion_usuario`= ? WHERE id_usuario= ?', [values.nombre, values.apellidos, values.alias, values.email, values.password, values.pais, values.imagen_perfil, values.descripcion_usuario, values.id_usuario], (err, result) => {
             if (err) {
                 reject(err)
             } else {
@@ -49,9 +49,38 @@ let editUsuario = (values) => {
     })
 }
 
+let getUsuarioByMail = (email) => {
+    return new Promise((resolve, reject) => {
+        db.get().query('SELECT * FROM usuarios WHERE email=?', [email], (err, rows) => {
+            if (err) {
+                reject(err);
+            } else {
+                resolve(rows)
+            }
+        })
+    })
+}
+
+
+let deleteUserById = (id) => {
+    return new Promise((resolve, reject) => {
+        db.get().query('DELETE FROM `usuarios` WHERE `usuarios`.`id_usuario` =  ?', [id], (err, rows) => {
+            if (err) {
+                reject(err)
+            } else {
+                resolve(rows)
+            }
+        })
+    })
+}
+
+
+
 module.exports = {
     getAll: getAll,
     getById: getById,
     insertUsuario: insertUsuario,
-    editUsuario: editUsuario
+    editUsuario: editUsuario,
+    getUsuarioByMail: getUsuarioByMail,
+    deleteUserById: deleteUserById
 }
