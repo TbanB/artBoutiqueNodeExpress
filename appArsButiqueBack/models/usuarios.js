@@ -3,7 +3,7 @@ const db = require('../db');
 
 let getAll = () => {
     return new Promise((resolve, reject) => {
-        db.get().query('SELECT * FROM usuarios', (err, rows) => {
+        db.get().query('SELECT * FROM usuarios ORDER BY RAND()', (err, rows) => {
             if (err) {
                 reject(err)
             } else {
@@ -27,7 +27,7 @@ let getById = (idUsuario) => {
 
 let insertUsuario = (values) => {
     return new Promise((resolve, reject) => {
-        db.get().query('INSERT INTO usuarios (nombre, apellidos, alias, email, password, pais, imagen_perfil, descripcion_usuario) VALUES(?,?,?,?,?,?,?,?)', [values.nombre, values.apellidos, values.alias, values.email, values.password, values.pais, values.imagen_perfil, values.descripcion_usuario], (err, result) => {
+        db.get().query('INSERT INTO usuarios (nombre, apellidos, alias, email, password, pais, imagen_perfil, descripcion) VALUES(?,?,?,?,?,?,?,?)', [values.nombre, values.apellidos, values.alias, values.email, values.password, values.pais, values.imagen_perfil, values.descripcion], (err, result) => {
             if (err) {
                 reject(err)
             } else {
@@ -39,7 +39,7 @@ let insertUsuario = (values) => {
 
 let editUsuario = (values) => {
     return new Promise((resolve, reject) => {
-        db.get().query('UPDATE usuarios SET `nombre`= ?,`apellidos`= ?,`alias`= ?,`email`= ?,`password`= ?,`pais`= ?,`imagen_perfil`= ?,`descripcion_usuario`= ? WHERE id_usuario= ?', [values.nombre, values.apellidos, values.alias, values.email, values.password, values.pais, values.imagen_perfil, values.descripcion_usuario, values.id_usuario], (err, result) => {
+        db.get().query('UPDATE usuarios SET `nombre`= ?,`apellidos`= ?,`alias`= ?,`email`= ?,`password`= ?,`pais`= ?,`imagen_perfil`= ?,`descripcion`= ? WHERE id_usuario= ?', [values.nombre, values.apellidos, values.alias, values.email, values.password, values.pais, values.imagen_perfil, values.descripcion, values.id_usuario], (err, result) => {
             if (err) {
                 reject(err)
             } else {
